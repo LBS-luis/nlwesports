@@ -20,7 +20,7 @@ app.use(cors())
 
 
 
-
+// return games array
 app.get('/games', async (req, res) => {
     const games = await prisma.game.findMany({
         include:{
@@ -35,6 +35,7 @@ app.get('/games', async (req, res) => {
     return res.json(games)
 })
 
+// create ad in game
 app.post('/game/:id/ads', async (req, res) => {
     const gameId = req.params.id
     const body: any = req.body
@@ -54,6 +55,7 @@ app.post('/game/:id/ads', async (req, res) => {
     return res.status(201).json(ad)
 })
 
+// return ads array of a unique game
 app.get('/game/:id/ads', async (req, res) => {
     const gameId = req.params.id;
     const ads = await prisma.ad.findMany({
@@ -84,6 +86,7 @@ app.get('/game/:id/ads', async (req, res) => {
 })
 
 
+//return a discrod in a unique ad
 app.get('/ads/:id/discord', async (req, res) => {
     const adId = req.params.id;
     const ad = await prisma.ad.findUniqueOrThrow({
